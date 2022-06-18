@@ -77,28 +77,6 @@ app.post("/", function (request, response) {
   });
 });
 
-function getCities() {
-  const url = "https://api.first.org/data/v1/countries";
-  var countryNames = [];
-  https.get(url, function (resData) {
-    resData.on("data", function (data) {
-      const countryData = JSON.parse(data);
-      let codes = countryData.data;
-      for (key in codes) {
-        console.log(codes[key].country);
-        countryNames.push(codes[key].country);
-      }
-    });
-  });
-  return countryNames;
-}
-
-function getCountries() {
-  var countries = [];
-
-  return countries;
-}
-
 function run() {
   console.log("server is running at port 3000.");
   console.log("http://localhost:3000/");
