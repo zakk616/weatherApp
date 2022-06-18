@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>Weather APP</title>
+  </head>
+  <body>
+    <form action="/" method="post">
+      <label for="sel">Country:</label>
+      <select id="sel"></select>
+      <label for="city">City:</label>
+      <select id="city" name="city"></select>
+      <input type="submit" value="Get Weather" />
+    </form>
+
+    <script>
+      $(function () {
+        $.get("http://localhost:3000/countries", function (data) {
+          for (key in data) {
+            $("#sel").append(
+              "<option value='" +
+                data[key].iso2 +
+                "'>" +
+                data[key].country +
+                "</option>"
+            );
+          }
+        });
+      });
+
+      $("#sel").change(function () {
+        $("#city").empty();
+        var country = $("#sel option:selected").text();
+        $.get("http://localhost:3000/cities/" + country, function (data) {
+          for (key in data.cities) {
+            $("#city").append(
+              "<option value='" +
+                data.cities[key] +
+                "'>" +
+                data.cities[key] +
+                "</option>"
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
