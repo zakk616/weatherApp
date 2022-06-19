@@ -17,13 +17,6 @@
     </form>
 
     <script>
-
-      // var port = $.get("port.txt", function (data) {
-      //     return data;
-      //   },"text");
-
-      // console.log("reading file using ajax: "+port);
-
       $(function () {
         $.get("/countries", function (data) {
           for (key in data) {

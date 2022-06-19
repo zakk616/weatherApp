@@ -7,7 +7,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (request, response) {
-  var port = readPort();
   response.sendFile(__dirname + "/index.html");
 });
 
@@ -71,35 +70,13 @@ app.post("/", function (request, response) {
           weatherData.weather[0].icon +
           '.png">'
       );
-
       response.send();
     });
   });
 });
 
-function readPort() {
-  const fs = require("fs");
-  fs.readFile("./port.txt", "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(data);
-    return data;
-  });
-}
-
 function run(port) {
-  const fs = require("fs");
-  const content = port;
-  fs.writeFile("./port.txt", content, (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-
   console.log("server is running at port: " + port);
-  console.log("http://localhost:" + port + "/");
 }
 
 app.listen(process.env.PORT, run(process.env.PORT));
