@@ -7,13 +7,13 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (request, response) {
+  var port = readPort();
   response.sendFile(__dirname + "/index.html");
 });
 
 app.get("/countries", function (request, response) {
   const fs = require("fs");
   fs.readFile("./countries.json", "utf8", (err, jsonString) => {
-    let countries = [];
     if (err) {
       console.log("File read failed:", err);
       return;
@@ -33,9 +33,9 @@ app.get("/cities/:country", function (request, response) {
     }
     const data = JSON.parse(jsonString);
     for (key in data.data) {
-        if (data.data[key].country == counrty) {
-            response.send(data.data[key]);
-        }
+      if (data.data[key].country == counrty) {
+        response.send(data.data[key]);
+      }
     }
   });
 });
@@ -77,9 +77,30 @@ app.post("/", function (request, response) {
   });
 });
 
-function run(port) {
-  console.log("server is running at port: "+port);
-  console.log("http://localhost:"+port+"/");
+function readPort() {
+  const fs = require("fs");
+  fs.readFile("./port.txt", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(data);
+    return data;
+  });
 }
 
-app.listen(process.env.PORT, run(process.env.PORT));
+function run(port) {
+  const fs = require("fs");
+  const content = port;
+  fs.writeFile("./port.txt", content, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+
+  console.log("server is running at port: " + port);
+  console.log("http://localhost:" + port + "/");
+}
+
+// app.listen(process.env.PORT, run(process.env.PORT));
+app.listen('5000', run('5000'));
