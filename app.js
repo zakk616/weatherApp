@@ -77,9 +77,9 @@ app.post("/", function (request, response) {
   });
 });
 
-function run() {
-  console.log("server is running at port 3000.");
-  console.log("http://localhost:3000/");
+function run(port) {
+  console.log("server is running at port: "+port);
+  console.log("http://localhost:"+port+"/");
 }
 
-app.listen(3000, run());
+app.listen(process.env.PORT, run(process.env.PORT));
