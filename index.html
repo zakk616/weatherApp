@@ -25,7 +25,7 @@
       // console.log("reading file using ajax: "+port);
 
       $(function () {
-        $.get("http://localhost:5000/countries", function (data) {
+        $.get("/countries", function (data) {
           for (key in data) {
             $("#sel").append(
               "<option value='" +
@@ -41,7 +41,7 @@
       $("#sel").change(function () {
         $("#city").empty();
         var country = $("#sel option:selected").text();
-        $.get("http://localhost:5000/cities/" + country, function (data) {
+        $.get("/cities/" + country, function (data) {
           for (key in data.cities) {
             $("#city").append(
               "<option value='" +
