@@ -102,5 +102,5 @@ function run(port) {
   console.log("http://localhost:" + port + "/");
 }
 
-// app.listen(process.env.PORT, run(process.env.PORT));
-app.listen('5000', run('5000'));
+app.listen(process.env.PORT, run(process.env.PORT));
+// app.listen('5000', run('5000'));
